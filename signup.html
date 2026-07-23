@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Sign Up - School Ranking System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f7f2fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .auth-container {
+            background: white;
+            border-radius: 24px;
+            padding: 32px 28px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 8px 40px rgba(155, 89, 182, 0.15);
+            border: 1px solid #e8dff0;
+        }
+        .auth-container h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .auth-container .subtitle {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 16px;
+        }
+        .input-group label {
+            display: block;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e8dff0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.2s;
+            background: #faf8fc;
+        }
+        .input-group input:focus {
+            border-color: #9575cd;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(149, 117, 205, 0.15);
+            background: white;
+        }
+        .input-group input:disabled {
+            opacity: 0.6;
+            background: #f0ebf5;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #b39ddb 0%, #9575cd 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(149, 117, 205, 0.3);
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-secondary {
+            background: #f0ebf5;
+            color: #2c3e50;
+            margin-top: 12px;
+        }
+        .btn-secondary:hover {
+            background: #e5ddf0;
+            box-shadow: none;
+        }
+        .btn-phone {
+            background: linear-gradient(135deg, #43a047, #2e7d32);
+        }
+        .btn-email {
+            background: linear-gradient(135deg, #1e88e5, #0d47a1);
+        }
+        .error-msg {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 8px;
+            text-align: center;
+            min-height: 20px;
+        }
+        .success-msg {
+            color: #27ae60;
+            font-size: 13px;
+            margin-top: 8px;
+            text-align: center;
+            min-height: 20px;
+        }
+        .divider {
+            text-align: center;
+            color: #b0a8b8;
+            font-size: 13px;
+            margin: 20px 0 12px;
+            position: relative;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #e8dff0;
+        }
+        .divider::before {
+            left: 0;
+        }
+        .divider::after {
+            right: 0;
+        }
+        .footer-text {
+            text-align: center;
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-top: 16px;
+        }
+        .footer-text a {
+            color: #9575cd;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+        .method-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .method-selector button {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e8dff0;
+            border-radius: 12px;
+            background: #faf8fc;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            color: #7f8c8d;
+            transition: all 0.2s;
+        }
+        .method-selector button.active {
+            border-color: #9575cd;
+            background: #f3edf8;
+            color: #2c3e50;
+        }
+        .method-selector button:hover {
+            border-color: #9575cd;
+        }
+        .hidden {
+            display: none;
+        }
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 20px;
+            right: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            border-radius: 14px;
+            font-size: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            animation: slideUp 0.3s ease;
+            z-index: 999;
+        }
+        .toast-success { background: #27ae60; }
+        .toast-error { background: #e74c3c; }
+        .toast-info { background: #9575cd; }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @media (max-width: 480px) {
+            .auth-container { padding: 24px 18px; }
+        }
+        .teacher-badge {
+            display: inline-block;
+            background: #f3edf8;
+            color: #9575cd;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .note-text {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 4px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <h1>📚 Sign Up</h1>
+        <p class="subtitle">Create your teacher account to get started</p>
+        
+        <div class="teacher-badge">👨‍🏫 Teacher Registration</div>
+
+        <!-- Method Selector: Phone or Email -->
+        <div class="method-selector">
+            <button id="methodPhone" class="active">📱 Phone</button>
+            <button id="methodEmail">✉️ Email</button>
+        </div>
+
+        <!-- Phone Method -->
+        <div id="phoneMethod">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" id="signupPhoneName" placeholder="e.g.,Gift Meza" autocomplete="name">
+            </div>
+            <div class="input-group">
+                <label>School Name</label>
+                <input type="text" id="signupPhoneSchool" placeholder="e.g., Mezaneyo online school">
+            </div>
+            <div class="input-group">
+                <label>Phone Number</label>
+                <input type="tel" id="signupPhone" placeholder="+26599123456" autocomplete="tel">
+                <div class="note-text">No verification code will be sent. Phone is for identification only.</div>
+            </div>
+            <button class="btn btn-phone" id="signupPhoneBtn">Create Account with Phone</button>
+        </div>
+
+        <!-- Email Method -->
+        <div id="emailMethod" class="hidden">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" id="signupName" placeholder="e.g., John Doe" autocomplete="name">
+            </div>
+            <div class="input-group">
+                <label>School Name</label>
+                <input type="text" id="signupEmailSchool" placeholder="e.g., Springfield High School">
+            </div>
+            <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" id="signupEmail" placeholder="you@example.com" autocomplete="email">
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="signupPassword" placeholder="Min 6 characters" autocomplete="new-password">
+            </div>
+            <button class="btn btn-email" id="signupEmailBtn">Create Account with Email</button>
+            <div style="margin-top: 8px; font-size: 12px; color: #7f8c8d; text-align: center;">
+                Email verification is optional. You can verify later in your profile.
+            </div>
+        </div>
+
+        <div class="error-msg" id="signupError"></div>
+        <div class="success-msg" id="signupSuccess"></div>
+
+        <button class="btn btn-secondary" onclick="window.location.href='login.html'">Already have an account? Log in</button>
+
+        <div class="footer-text">
+            By signing up, you agree to our terms and conditions.
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // ============================================================
+        // FIREBASE CONFIG
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyAKTBTnSHbZ-aEzIOZZ6ElWpybD93DHXVc",
+            authDomain: "school-7bfaa.firebaseapp.com",
+            projectId: "school-7bfaa",
+            storageBucket: "school-7bfaa.firebasestorage.app",
+            messagingSenderId: "91516216765",
+            appId: "1:91516216765:web:d95271f492a680308d1ed4"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // ============================================================
+        // DOM REFERENCES
+        // ============================================================
+        const nameInput = document.getElementById('signupName');
+        const emailInput = document.getElementById('signupEmail');
+        const passwordInput = document.getElementById('signupPassword');
+        const emailSchoolInput = document.getElementById('signupEmailSchool');
+        
+        const phoneNameInput = document.getElementById('signupPhoneName');
+        const phoneSchoolInput = document.getElementById('signupPhoneSchool');
+        const phoneInput = document.getElementById('signupPhone');
+        
+        const signupEmailBtn = document.getElementById('signupEmailBtn');
+        const signupPhoneBtn = document.getElementById('signupPhoneBtn');
+        
+        const errorDiv = document.getElementById('signupError');
+        const successDiv = document.getElementById('signupSuccess');
+
+        // Method selector
+        const methodPhone = document.getElementById('methodPhone');
+        const methodEmail = document.getElementById('methodEmail');
+        const phoneMethod = document.getElementById('phoneMethod');
+        const emailMethod = document.getElementById('emailMethod');
+
+        methodPhone.addEventListener('click', () => {
+            methodPhone.classList.add('active');
+            methodEmail.classList.remove('active');
+            phoneMethod.classList.remove('hidden');
+            emailMethod.classList.add('hidden');
+            clearErrors();
+        });
+
+        methodEmail.addEventListener('click', () => {
+            methodEmail.classList.add('active');
+            methodPhone.classList.remove('active');
+            emailMethod.classList.remove('hidden');
+            phoneMethod.classList.add('hidden');
+            clearErrors();
+        });
+
+        // ============================================================
+        // TOAST HELPER
+        // ============================================================
+        function showToast(message, type = 'info', duration = 4000) {
+            const old = document.querySelector('.toast');
+            if (old) old.remove();
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        function clearErrors() {
+            errorDiv.textContent = '';
+            successDiv.textContent = '';
+        }
+
+        // ============================================================
+        // PHONE SIGNUP (No verification code)
+        // ============================================================
+        signupPhoneBtn.addEventListener('click', async () => {
+            const name = phoneNameInput.value.trim();
+            const school = phoneSchoolInput.value.trim();
+            const phone = phoneInput.value.trim();
+
+            clearErrors();
+
+            if (!name) {
+                errorDiv.textContent = 'Please enter your full name.';
+                return;
+            }
+            if (!school) {
+                errorDiv.textContent = 'Please enter your school name.';
+                return;
+            }
+            if (!phone) {
+                errorDiv.textContent = 'Please enter your phone number.';
+                return;
+            }
+
+            // Validate phone format (basic)
+            if (!phone.match(/^\+?[1-9]\d{1,14}$/)) {
+                errorDiv.textContent = 'Please enter a valid phone number with country code (e.g., +1234567890)';
+                return;
+            }
+
+            signupPhoneBtn.disabled = true;
+            signupPhoneBtn.textContent = 'Creating account...';
+
+            try {
+                // Create a fake email from phone number for Firebase Auth
+                const fakeEmail = phone.replace(/[^0-9]/g, '') + '@teacher.school';
+                const tempPassword = 'Teacher@' + phone.replace(/[^0-9]/g, '').slice(-6);
+
+                // Create user with email/password (Firebase requires email)
+                const userCredential = await auth.createUserWithEmailAndPassword(fakeEmail, tempPassword);
+                const user = userCredential.user;
+
+                // Update profile with name
+                await user.updateProfile({ displayName: name });
+
+                // Save to Firestore with phone and school
+                await db.collection('users').doc(user.uid).set({
+                    uid: user.uid,
+                    email: fakeEmail,
+                    displayName: name,
+                    phoneNumber: phone,
+                    schoolName: school,
+                    role: 'teacher',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    emailVerified: false,
+                    phoneVerified: false // no verification sent
+                });
+
+                successDiv.textContent = '✅ Account created successfully! Redirecting...';
+                showToast('Welcome, ' + name + '! 🎉', 'success');
+
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1200);
+
+            } catch (error) {
+                console.error('Phone signup error:', error);
+                let msg = error.message;
+                if (error.code === 'auth/email-already-in-use') {
+                    msg = 'This phone number is already registered. Please log in.';
+                } else if (error.code === 'auth/invalid-email') {
+                    msg = 'Please enter a valid phone number.';
+                }
+                errorDiv.textContent = '❌ ' + msg;
+                showToast(msg, 'error');
+            } finally {
+                signupPhoneBtn.disabled = false;
+                signupPhoneBtn.textContent = 'Create Account with Phone';
+            }
+        });
+
+        // Enter key for phone signup
+        phoneInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') signupPhoneBtn.click();
+        });
+        phoneNameInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') signupPhoneBtn.click();
+        });
+        phoneSchoolInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') signupPhoneBtn.click();
+        });
+
+        // ============================================================
+        // EMAIL SIGNUP
+        // ============================================================
+        signupEmailBtn.addEventListener('click', async () => {
+            const name = nameInput.value.trim();
+            const school = emailSchoolInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            clearErrors();
+
+            if (!name) {
+                errorDiv.textContent = 'Please enter your full name.';
+                return;
+            }
+            if (!school) {
+                errorDiv.textContent = 'Please enter your school name.';
+                return;
+            }
+            if (!email) {
+                errorDiv.textContent = 'Please enter your email address.';
+                return;
+            }
+            if (!password || password.length < 6) {
+                errorDiv.textContent = 'Password must be at least 6 characters.';
+                return;
+            }
+
+            signupEmailBtn.disabled = true;
+            signupEmailBtn.textContent = 'Creating account...';
+
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                await user.updateProfile({ displayName: name });
+
+                await db.collection('users').doc(user.uid).set({
+                    uid: user.uid,
+                    email: user.email,
+                    displayName: name,
+                    schoolName: school,
+                    phoneNumber: user.phoneNumber || '',
+                    role: 'teacher',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    emailVerified: false
+                });
+
+                // Send verification email (optional - user can verify later)
+                try {
+                    await user.sendEmailVerification();
+                    console.log('Verification email sent (optional)');
+                } catch (verifyError) {
+                    console.warn('Could not send verification email:', verifyError);
+                }
+
+                successDiv.textContent = '✅ Account created successfully! Redirecting...';
+                showToast('Welcome, ' + name + '! 🎉', 'success');
+
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1200);
+
+            } catch (error) {
+                console.error('Signup error:', error);
+                let msg = error.message;
+                if (error.code === 'auth/email-already-in-use') {
+                    msg = 'This email is already registered. Please log in.';
+                } else if (error.code === 'auth/invalid-email') {
+                    msg = 'Please enter a valid email address.';
+                } else if (error.code === 'auth/weak-password') {
+                    msg = 'Password is too weak. Use at least 6 characters.';
+                }
+                errorDiv.textContent = '❌ ' + msg;
+                showToast(msg, 'error');
+            } finally {
+                signupEmailBtn.disabled = false;
+                signupEmailBtn.textContent = 'Create Account with Email';
+            }
+        });
+
+        // Enter key support for email signup
+        passwordInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') signupEmailBtn.click();
+        });
+        emailInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') signupEmailBtn.click();
+        });
+        nameInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') signupEmailBtn.click();
+        });
+        emailSchoolInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') signupEmailBtn.click();
+        });
+
+        // ============================================================
+        // CHECK IF ALREADY LOGGED IN
+        // ============================================================
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

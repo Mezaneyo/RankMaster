@@ -2,308 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-adsense-account" content="ca-pub-5923637825725021">
-    <title>Log In - School Ranking System</title>
+    <title>Log In — Rank Master</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f7f2fc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .auth-container {
-            background: white;
-            border-radius: 24px;
-            padding: 32px 28px;
-            max-width: 420px;
-            width: 100%;
-            box-shadow: 0 8px 40px rgba(155, 89, 182, 0.15);
-            border: 1px solid #e8dff0;
-        }
-        .auth-container h1 {
-            font-size: 24px;
-            color: #2c3e50;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .auth-container .subtitle {
-            color: #7f8c8d;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-        .input-group {
-            margin-bottom: 16px;
-        }
-        .input-group label {
-            display: block;
-            font-weight: 500;
-            color: #2c3e50;
-            font-size: 13px;
-            margin-bottom: 6px;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 2px solid #e8dff0;
-            border-radius: 12px;
-            font-size: 15px;
-            transition: all 0.2s;
-            background: #faf8fc;
-        }
-        .input-group input:focus {
-            border-color: #9575cd;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(149, 117, 205, 0.15);
-            background: white;
-        }
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #b39ddb 0%, #9575cd 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-top: 8px;
-        }
-        .btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 16px rgba(149, 117, 205, 0.3);
-        }
-        .btn:active {
-            transform: scale(0.98);
-        }
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .btn-secondary {
-            background: #f0ebf5;
-            color: #2c3e50;
-            margin-top: 12px;
-        }
-        .btn-secondary:hover {
-            background: #e5ddf0;
-            box-shadow: none;
-        }
-        .btn-phone {
-            background: linear-gradient(135deg, #43a047, #2e7d32);
-        }
-        .btn-email {
-            background: linear-gradient(135deg, #1e88e5, #0d47a1);
-        }
-        .error-msg {
-            color: #e74c3c;
-            font-size: 13px;
-            margin-top: 8px;
-            text-align: center;
-            min-height: 20px;
-        }
-        .success-msg {
-            color: #27ae60;
-            font-size: 13px;
-            margin-top: 8px;
-            text-align: center;
-            min-height: 20px;
-        }
-        .divider {
-            text-align: center;
-            color: #b0a8b8;
-            font-size: 13px;
-            margin: 20px 0 12px;
-            position: relative;
-        }
-        .divider::before,
-        .divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 40%;
-            height: 1px;
-            background: #e8dff0;
-        }
-        .divider::before {
-            left: 0;
-        }
-        .divider::after {
-            right: 0;
-        }
-        .footer-text {
-            text-align: center;
-            font-size: 13px;
-            color: #7f8c8d;
-            margin-top: 16px;
-        }
-        .footer-text a {
-            color: #9575cd;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .footer-text a:hover {
-            text-decoration: underline;
-        }
-        .forgot-link {
-            text-align: right;
-            font-size: 12px;
-            margin-top: 4px;
-        }
-        .forgot-link a {
-            color: #9575cd;
-            text-decoration: none;
-        }
-        .forgot-link a:hover {
-            text-decoration: underline;
-        }
-        .method-selector {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-        .method-selector button {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid #e8dff0;
-            border-radius: 12px;
-            background: #faf8fc;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            color: #7f8c8d;
-            transition: all 0.2s;
-        }
-        .method-selector button.active {
-            border-color: #9575cd;
-            background: #f3edf8;
-            color: #2c3e50;
-        }
-        .method-selector button:hover {
-            border-color: #9575cd;
-        }
-        .hidden {
-            display: none;
-        }
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 20px;
-            right: 20px;
-            max-width: 400px;
-            margin: 0 auto;
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            border-radius: 14px;
-            font-size: 14px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            animation: slideUp 0.3s ease;
-            z-index: 999;
-        }
-        .toast-success { background: #27ae60; }
-        .toast-error { background: #e74c3c; }
-        .toast-info { background: #9575cd; }
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @media (max-width: 480px) {
-            .auth-container { padding: 24px 18px; }
-        }
-        .teacher-badge {
-            display: inline-block;
-            background: #f3edf8;
-            color: #9575cd;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-        .note-text {
-            font-size: 12px;
-            color: #7f8c8d;
-            margin-top: 4px;
-            font-style: italic;
-        }
+        body { font-family: -apple-system, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.7; color: #333; }
+        h1 { color: #1a73e8; }
+        nav a { margin-right: 15px; color: #1a73e8; text-decoration: none; }
+        .login-box { background: #f9f9f9; padding: 30px; border-radius: 8px; margin: 20px 0; max-width: 400px; }
+        label { display: block; margin-top: 15px; font-weight: bold; font-size: 14px; }
+        input { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px; }
+        button { width: 100%; padding: 12px; margin-top: 25px; background: #1a73e8; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        button:hover { background: #0d47a1; }
+        footer { margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; font-size: 14px; color: #666; }
     </style>
 </head>
 <body>
-    <div class="auth-container">
-        <h1>🔐 Log In</h1>
-        <p class="subtitle">Welcome back! Log in to your teacher account</p>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <h1>🔐 Log In</h1>
+    <p>Welcome back! Log in to your teacher account.</p>
+
+    <div class="login-box">
+        <label>Email or Phone Number</label>
+        <input type="text" id="identifier" placeholder="you@example.com or 0995514049">
         
-        <div class="teacher-badge">👨‍🏫 Teacher Login</div>
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Your password">
+        
+        <button onclick="smartLogin()">Log In</button>
 
-        <!-- Method Selector: Phone or Email -->
-        <div class="method-selector">
-            <button id="methodPhone" class="active">📱 Phone</button>
-            <button id="methodEmail">✉️ Email</button>
-        </div>
-
-        <!-- Phone Method -->
-        <div id="phoneMethod">
-            <div class="input-group">
-                <label>Phone Number</label>
-                <input type="tel" id="loginPhone" placeholder="+26512344567" autocomplete="tel">
-                <div class="note-text">Enter the phone number you used to sign up.</div>
-            </div>
-            <div class="input-group">
-                <label>School Name</label>
-                <input type="text" id="loginPhoneSchool" placeholder="e.g., Mezaneyo online School">
-            </div>
-            <button class="btn btn-phone" id="loginPhoneBtn">Log In with Phone</button>
-        </div>
-
-        <!-- Email Method -->
-        <div id="emailMethod" class="hidden">
-            <div class="input-group">
-                <label>Email Address</label>
-                <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email">
-            </div>
-            <div class="input-group">
-                <label>Password</label>
-                <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password">
-                <div class="forgot-link">
-                    <a href="#" onclick="sendPasswordReset()">Forgot password? Reset via email</a>
-                </div>
-            </div>
-            <button class="btn btn-email" id="loginEmailBtn">Log In with Email</button>
-        </div>
-
-        <div class="error-msg" id="loginError"></div>
-        <div class="success-msg" id="loginSuccess"></div>
-
-        <button class="btn btn-secondary" onclick="window.location.href='signup.html'">Don't have an account? Sign up</button>
-
-        <div class="footer-text">
-            Secure login with Firebase
-        </div>
+        <p style="text-align:center; margin-top:20px;">
+            <a href="#" onclick="resetPassword()" style="color:#1a73e8;">Forgot password?</a>
+        </p>
+        <p style="text-align:center;">
+            Don't have an account? <a href="register.html" style="color:#1a73e8;">Sign up</a>
+        </p>
+        <p style="text-align:center; font-size:12px; color:#888;">Secure login with Firebase</p>
     </div>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <!-- Hidden container required for phone reCAPTCHA -->
+    <div id="recaptcha-container"></div>
 
-    <script>
-        // ============================================================
-        // FIREBASE CONFIG
-        // ============================================================
+    <footer>
+        <p>&copy; 2026 Rank Master. All rights reserved.</p>
+        <p><a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a> | <a href="/contact.html">Contact</a></p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signInWithPhoneNumber, RecaptchaVerifier, sendPasswordResetEmail }
+            from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyAKTBTnSHbZ-aEzIOZZ6ElWpybD93DHXVc",
             authDomain: "school-7bfaa.firebaseapp.com",
@@ -313,261 +69,68 @@
             appId: "1:91516216765:web:d95271f492a680308d1ed4"
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
-        // ============================================================
-        // DOM REFERENCES
-        // ============================================================
-        const emailInput = document.getElementById('loginEmail');
-        const passwordInput = document.getElementById('loginPassword');
-        const phoneInput = document.getElementById('loginPhone');
-        const phoneSchoolInput = document.getElementById('loginPhoneSchool');
-        const loginEmailBtn = document.getElementById('loginEmailBtn');
-        const loginPhoneBtn = document.getElementById('loginPhoneBtn');
-        const errorDiv = document.getElementById('loginError');
-        const successDiv = document.getElementById('loginSuccess');
-
-        // Method selector
-        const methodPhone = document.getElementById('methodPhone');
-        const methodEmail = document.getElementById('methodEmail');
-        const phoneMethod = document.getElementById('phoneMethod');
-        const emailMethod = document.getElementById('emailMethod');
-
-        methodPhone.addEventListener('click', () => {
-            methodPhone.classList.add('active');
-            methodEmail.classList.remove('active');
-            phoneMethod.classList.remove('hidden');
-            emailMethod.classList.add('hidden');
-            clearErrors();
-        });
-
-        methodEmail.addEventListener('click', () => {
-            methodEmail.classList.add('active');
-            methodPhone.classList.remove('active');
-            emailMethod.classList.remove('hidden');
-            phoneMethod.classList.add('hidden');
-            clearErrors();
-        });
-
-        // ============================================================
-        // TOAST HELPER
-        // ============================================================
-        function showToast(message, type = 'info', duration = 4000) {
-            const old = document.querySelector('.toast');
-            if (old) old.remove();
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s';
-                setTimeout(() => toast.remove(), 300);
-            }, duration);
+        // Format phone to E.164 (+265...) automatically
+        function formatPhoneNumber(input) {
+            let cleaned = input.replace(/[\s\-\(\)]/g, '');
+            if (cleaned.startsWith('+')) return cleaned;
+            if (cleaned.startsWith('265')) return '+' + cleaned;
+            if (cleaned.startsWith('0')) return '+265' + cleaned.substring(1);
+            if (cleaned.length === 9) return '+265' + cleaned;
+            return '+' + cleaned;
         }
 
-        function clearErrors() {
-            errorDiv.textContent = '';
-            successDiv.textContent = '';
-        }
+        window.smartLogin = async () => {
+            const identifier = document.getElementById("identifier").value.trim();
+            const password = document.getElementById("password").value;
 
-        // ============================================================
-        // PHONE LOGIN (No verification code)
-        // ============================================================
-        loginPhoneBtn.addEventListener('click', async () => {
-            const phone = phoneInput.value.trim();
-            const school = phoneSchoolInput.value.trim();
-
-            clearErrors();
-
-            if (!phone) {
-                errorDiv.textContent = 'Please enter your phone number.';
-                return;
-            }
-            if (!school) {
-                errorDiv.textContent = 'Please enter your school name.';
+            if (!identifier || !password) {
+                alert("Please enter your email/phone and password.");
                 return;
             }
 
-            if (!phone.match(/^\+?[1-9]\d{1,14}$/)) {
-                errorDiv.textContent = 'Please enter a valid phone number with country code (e.g., +1234567890)';
-                return;
-            }
-
-            loginPhoneBtn.disabled = true;
-            loginPhoneBtn.textContent = 'Logging in...';
-
-            try {
-                // Find user by phone number in Firestore
-                const usersRef = db.collection('users');
-                const snapshot = await usersRef
-                    .where('phoneNumber', '==', phone)
-                    .where('schoolName', '==', school)
-                    .get();
-
-                if (snapshot.empty) {
-                    errorDiv.textContent = '❌ No account found with this phone number and school.';
-                    showToast('No account found with this phone and school.', 'error');
-                    loginPhoneBtn.disabled = false;
-                    loginPhoneBtn.textContent = 'Log In with Phone';
-                    return;
+            if (identifier.includes('@')) {
+                // EMAIL LOGIN
+                try {
+                    await signInWithEmailAndPassword(auth, identifier, password);
+                    window.location.href = "dashboard.html";
+                } catch (e) {
+                    alert("Email login failed: " + e.message);
                 }
-
-                // Get the user data
-                let userData = null;
-                let userId = null;
-                snapshot.forEach(doc => {
-                    userData = doc.data();
-                    userId = doc.id;
-                });
-
-                // Since we can't sign in with phone without verification, 
-                // we'll use the email created during signup
-                const fakeEmail = phone.replace(/[^0-9]/g, '') + '@teacher.school';
+            } else {
+                // PHONE LOGIN
+                const phone = formatPhoneNumber(identifier);
                 
-                // Check if user exists in auth
-                try {
-                    // Try to sign in with the stored password (we need to store it or use a known pattern)
-                    // Since we don't store password, we'll use a reset flow
-                    // We'll send a password reset email to the fake email
-                    // But since it's a fake email, we'll use a different approach
-                    
-                    // For phone login, we'll redirect to email login with a hint
-                    errorDiv.textContent = '📱 Phone login requires email verification. Please use email login or contact support.';
-                    showToast('Phone login is disabled. Use email login.', 'info');
-                    loginPhoneBtn.disabled = false;
-                    loginPhoneBtn.textContent = 'Log In with Phone';
-                    return;
-                    
-                } catch (authError) {
-                    console.error('Auth error:', authError);
-                    errorDiv.textContent = '❌ Authentication error. Please use email login.';
-                    showToast('Authentication error. Use email login.', 'error');
+                if (!window.recaptchaVerifier) {
+                    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { size: 'invisible' });
                 }
-
-            } catch (error) {
-                console.error('Phone login error:', error);
-                errorDiv.textContent = '❌ ' + error.message;
-                showToast(error.message, 'error');
-            } finally {
-                loginPhoneBtn.disabled = false;
-                loginPhoneBtn.textContent = 'Log In with Phone';
+                
+                try {
+                    const confirmationResult = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+                    const code = prompt(`Enter the SMS code sent to ${phone}:`);
+                    await confirmationResult.confirm(code);
+                    window.location.href = "dashboard.html";
+                } catch (e) {
+                    alert("Phone login failed: " + e.message);
+                }
             }
-        });
+        };
 
-        // Enter key for phone login
-        phoneInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') loginPhoneBtn.click();
-        });
-        phoneSchoolInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') loginPhoneBtn.click();
-        });
-
-        // ============================================================
-        // EMAIL LOGIN
-        // ============================================================
-        loginEmailBtn.addEventListener('click', async () => {
-            const email = emailInput.value.trim();
-            const password = passwordInput.value.trim();
-
-            clearErrors();
-
-            if (!email) {
-                errorDiv.textContent = 'Please enter your email address.';
+        window.resetPassword = async () => {
+            const identifier = document.getElementById("identifier").value.trim();
+            if (!identifier.includes('@')) {
+                alert("Please enter your email address above to reset your password.");
                 return;
             }
-            if (!password) {
-                errorDiv.textContent = 'Please enter your password.';
-                return;
-            }
-
-            loginEmailBtn.disabled = true;
-            loginEmailBtn.textContent = 'Logging in...';
-
             try {
-                const userCredential = await auth.signInWithEmailAndPassword(email, password);
-                const user = userCredential.user;
-
-                successDiv.textContent = '✅ Login successful! Redirecting...';
-                showToast('Welcome back, ' + (user.displayName || 'User') + '! 🎉', 'success');
-
-                try {
-                    await db.collection('users').doc(user.uid).update({
-                        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                } catch (updateError) {
-                    console.warn('Could not update last login:', updateError);
-                }
-
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1000);
-
-            } catch (error) {
-                console.error('Login error:', error);
-                let msg = error.message;
-                if (error.code === 'auth/user-not-found') {
-                    msg = 'No account found with this email. Please sign up.';
-                } else if (error.code === 'auth/wrong-password') {
-                    msg = 'Incorrect password. Please try again.';
-                } else if (error.code === 'auth/invalid-email') {
-                    msg = 'Please enter a valid email address.';
-                } else if (error.code === 'auth/user-disabled') {
-                    msg = 'This account has been disabled. Contact support.';
-                } else if (error.code === 'auth/too-many-requests') {
-                    msg = 'Too many failed attempts. Please try again later.';
-                }
-                errorDiv.textContent = '❌ ' + msg;
-                showToast(msg, 'error');
-            } finally {
-                loginEmailBtn.disabled = false;
-                loginEmailBtn.textContent = 'Log In with Email';
+                await sendPasswordResetEmail(auth, identifier);
+                alert("Password reset email sent to " + identifier);
+            } catch (e) {
+                alert("Error: " + e.message);
             }
-        });
-
-        // Enter key for email login
-        passwordInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') loginEmailBtn.click();
-        });
-        emailInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') loginEmailBtn.click();
-        });
-
-        // ============================================================
-        // PASSWORD RESET (via email)
-        // ============================================================
-        function sendPasswordReset() {
-            const email = emailInput.value.trim();
-            if (!email) {
-                showToast('Please enter your email address first.', 'warning');
-                emailInput.focus();
-                return;
-            }
-
-            auth.sendPasswordResetEmail(email)
-                .then(() => {
-                    showToast('Password reset email sent to ' + email + '. Check your inbox.', 'success');
-                })
-                .catch((error) => {
-                    console.error('Password reset error:', error);
-                    let msg = error.message;
-                    if (error.code === 'auth/user-not-found') {
-                        msg = 'No account found with this email.';
-                    }
-                    showToast('Failed to send reset email: ' + msg, 'error');
-                });
-        }
-
-        // ============================================================
-        // CHECK IF ALREADY LOGGED IN
-        // ============================================================
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                window.location.href = 'index.html';
-            }
-        });
+        };
     </script>
 </body>
 </html>
